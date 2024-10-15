@@ -3,13 +3,22 @@
   "name": "TechStack-Inspector",
   "version": "0.1",
   "description": "Detects and highlights JSP and React components on a page",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "permissions": ["activeTab", "scripting"],
+    "host_permissions": [
+    "https://dashboard.shoplworks.com/*",
+    "https://dev.shopl.work/*",
+    "https://qa-dashboard.shoplworks.com/*"
+  ],
   "action": {
     "default_popup": "index.html"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+    "matches": [
+        "https://dashboard.shoplworks.com/*",
+        "https://dev.shopl.work/*",
+        "https://qa-dashboard.shoplworks.com/*"
+      ],
       "js": ["content.js"]
     }
   ],
