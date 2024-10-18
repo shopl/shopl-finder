@@ -74,14 +74,15 @@ const handleIframe = (iframe: HTMLIFrameElement, type: 'React_Modal' | 'React_Se
 const createLabel = (text: string, backgroundColor: string) => {
   const label = document.createElement('div');
   Object.assign(label.style, {
-    position: 'sticky',
-    top: '0',
-    left: '0',
+    position: 'absolute',
+    top: '6px',
+    left: '6px',
     background: backgroundColor,
-    color: text.includes('JSP') ? 'black' : 'white',
+    color: '#ffffff',
     padding: '8px',
     fontSize: '16px',
     zIndex: '10000',
+    borderRadius: '6px',
   });
   label.textContent = text;
   label.classList.add('tech-stack-label');

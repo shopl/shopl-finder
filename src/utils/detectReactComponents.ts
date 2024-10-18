@@ -14,25 +14,28 @@ export const detectReactComponents = (): DetectionResult => {
   const reactModals: Element[] = [];
   const reactSections: Element[] = [];
 
+  const classifyIframe = (iframe: HTMLIFrameElement) => {
+    if (!iframe.contentDocument) {
+      return;
+    }
+    const iframeUrl = iframe.src || iframe.contentDocument.URL;
+    if (iframeUrl.includes('/dv2/')) {
+      if (iframe.classList.contains('modal-frame')) {
+        return reactModals.push(iframe);
+      }
+      reactSections.push(iframe);
+    }
+  };
+
   if (isFullPageReact) {
     reactRoots = [document.body];
   } else {
     const iframes = document.querySelectorAll('iframe');
     iframes.forEach((iframe) => {
       try {
-        const iframeDocument = (iframe as HTMLIFrameElement).contentDocument;
-        if (iframeDocument) {
-          const iframeUrl = iframe.src || iframeDocument.URL;
-          if (iframeUrl.includes('/dv2/')) {
-            if (iframe.classList.contains('modal-frame')) {
-              reactModals.push(iframe);
-            } else {
-              reactSections.push(iframe);
-            }
-          }
-        }
+        classifyIframe(iframe);
       } catch (e) {
-        console.error('Error accessing iframe content:', e);
+        console.error('error: iframe content:', e);
       }
     });
   }
