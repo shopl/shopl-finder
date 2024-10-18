@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "TechStack-Inspector",
+  "name": "SHOPL 페이지 분석기",
   "version": "0.1",
-  "description": "Detects and highlights JSP and React components on a page",
+  "description": "SHOPL 대시보드 페이지의 기술 구조를 한눈에 파악하세요. JSP와 React 영역을 구분하고 시각적으로 표시해 줍니다.",
   "permissions": ["activeTab", "scripting"],
     "host_permissions": [
     "https://dashboard.shoplworks.com/*",
