@@ -9,7 +9,7 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["activeTab", "scripting","bookmarks"],
+  "permissions": ["activeTab", "scripting"],
     "host_permissions": [
     "https://dashboard.shoplworks.com/*",
     "https://dev.shopl.work/*",
