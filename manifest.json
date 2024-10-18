@@ -2,8 +2,14 @@
   "manifest_version": 3,
   "name": "SHOPL 페이지 분석기",
   "version": "0.1",
-  "description": "SHOPL 대시보드 페이지의 기술 구조를 한눈에 파악하세요. JSP와 React 영역을 구분하고 시각적으로 표시해 줍니다.",
-  "permissions": ["activeTab", "scripting"],
+  "description": "SHOPL 대시보드 페이지의 기술 구조 요약 및 JSP와 React 영역 표시.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["activeTab", "scripting","bookmarks"],
     "host_permissions": [
     "https://dashboard.shoplworks.com/*",
     "https://dev.shopl.work/*",
