@@ -1,11 +1,11 @@
 # SHOPL 페이지 분석기 크롬 확장 프로그램
 
 ## 목차
-- [주요 기능](https://github.com/shopl/Dashboard-TeckStack-Inspector/edit/main/README.md#%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)
-- [지원하는 페이지 유형](https://github.com/shopl/Dashboard-TeckStack-Inspector/edit/main/README.md#%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%9C%A0%ED%98%95)
-- [설치 및 사용 방법](https://github.com/shopl/Dashboard-TeckStack-Inspector/edit/main/README.md#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
-- [주의사항](https://github.com/shopl/Dashboard-TeckStack-Inspector/edit/main/README.md#%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
-- [문제해결 및 피드백](https://github.com/shopl/Dashboard-TeckStack-Inspector/edit/main/README.md#%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0-%EB%B0%8F-%ED%94%BC%EB%93%9C%EB%B0%B1)
+- [주요 기능](https://github.com/shopl/Dashboard-TeckStack-Inspector?tab=readme-ov-file#%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)
+- [지원하는 페이지 유형](https://github.com/shopl/Dashboard-TeckStack-Inspector?tab=readme-ov-file#%EC%A7%80%EC%9B%90%ED%95%98%EB%8A%94-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%9C%A0%ED%98%95)
+- [설치 및 사용 방법](https://github.com/shopl/Dashboard-TeckStack-Inspector?tab=readme-ov-file#%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%82%AC%EC%9A%A9-%EB%B0%A9%EB%B2%95)
+- [주의사항](https://github.com/shopl/Dashboard-TeckStack-Inspector?tab=readme-ov-file#%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD)
+- [문제해결 및 피드백](https://github.com/shopl/Dashboard-TeckStack-Inspector?tab=readme-ov-file#%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0-%EB%B0%8F-%ED%94%BC%EB%93%9C%EB%B0%B1)
 
 ## 주요 기능
 <img src='https://lh3.googleusercontent.com/JTtaAL1WN716zYHZhg_-wsLjfOGH0oP23-KeYZCbIbZoWPIWS1khdmTUk2xGLpYBPmc6kCcFj98fjoDc4YI9s_-ILA=s1280-w1280-h800' alt="screenshot" width="700px" />
