@@ -1,70 +1,47 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
-type FeatureType = 'techstack' | 'shoplflow';
-
-interface FeatureState {
-  result: string | null;
-  isLoading: boolean;
-}
+type FeatureType = 'detect-techstack' | 'detect-shoplflow' | 'reset-highlights';
 
 const Popup: React.FC = () => {
-  const [techstackState, setTechstackState] = useState<FeatureState>({
+  const [actionState, setActionState] = useState<{
+    type: FeatureType | null;
+    result: string | null;
+    isLoading: boolean;
+  }>({
+    type: null,
     result: null,
     isLoading: false,
   });
 
-  const [shoplflowState, setShoplflowState] = useState<FeatureState>({
-    result: null,
-    isLoading: false,
-  });
-
-  const [isResetting, setIsResetting] = useState(false);
-
-  const detectFeature = (featureType: FeatureType) => {
-    const setState = featureType === 'techstack' ? setTechstackState : setShoplflowState;
-    const action = featureType === 'techstack' ? 'detect-techstack' : 'detect-shoplflow';
-
-    setState((prev) => ({ ...prev, isLoading: true }));
+  const detectFeature = (action: FeatureType) => {
+    setActionState((prev) => ({ ...prev, isLoading: true }));
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const activeTab = tabs[0];
       const tabId = activeTab?.id;
 
       if (typeof tabId !== 'number') {
-        setState({ result: null, isLoading: false });
+        setActionState({ type: null, result: null, isLoading: false });
+
         return;
       }
 
       chrome.tabs.sendMessage(tabId, { action }, (response: { result: string } | undefined) => {
         if (chrome.runtime.lastError) {
           console.error(chrome.runtime.lastError);
-          setState({ result: null, isLoading: false });
-        } else if (response) {
-          setState({ result: response.result, isLoading: false });
-        } else {
-          setState({ result: null, isLoading: false });
+          return;
+        }
+        try {
+          if (!response) {
+            return;
+          }
+          setActionState({ type: action, result: response.result, isLoading: false });
+        } catch (error) {
+          console.error(error);
+          setActionState({ type: null, result: null, isLoading: false });
         }
       });
-    });
-  };
-
-  const resetHighlights = () => {
-    setIsResetting(true);
-
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const activeTab = tabs[0];
-      const tabId = activeTab?.id;
-
-      if (typeof tabId !== 'number') {
-        setIsResetting(false);
-        return;
-      }
-      chrome.tabs.sendMessage(tabId, { action: 'reset-highlights' });
-      // Popup 상태 초기화
-      setTechstackState({ result: null, isLoading: false });
-      setShoplflowState({ result: null, isLoading: false });
-      setIsResetting(false);
     });
   };
 
@@ -73,38 +50,41 @@ const Popup: React.FC = () => {
       <Title> 🔎 SHOPL Finder</Title>
 
       <ButtonSection>
-        <FeatureButton onClick={() => detectFeature('techstack')}>⚙️ 기술 스택 찾기</FeatureButton>
+        <FeatureButton onClick={() => detectFeature('detect-techstack')}>⚙️ 기술 스택 찾기</FeatureButton>
 
-        <FeatureButton onClick={() => detectFeature('shoplflow')}>🛍️ Shoplflow 찾기</FeatureButton>
+        <FeatureButton onClick={() => detectFeature('detect-shoplflow')}>🛍️ Shoplflow 찾기</FeatureButton>
 
-        <ResetButton onClick={resetHighlights} disabled={isResetting}>
-          {isResetting ? '초기화 중...' : '🔄 초기화하기'}
+        <ResetButton
+          onClick={() => detectFeature('reset-highlights')}
+          disabled={Boolean(actionState.type === 'reset-highlights' && actionState.isLoading)}
+        >
+          {actionState.type === 'reset-highlights' && actionState.isLoading ? '초기화 중...' : '🔄 초기화하기'}
         </ResetButton>
       </ButtonSection>
 
       {/* 기술 스택 결과 */}
-      {(techstackState.isLoading || techstackState.result) && (
+      {actionState.type === 'detect-techstack' && (
         <ResultSection>
           <ResultTitle>📋 기술 스택 결과</ResultTitle>
           <ResultContainer>
-            {techstackState.isLoading ? (
+            {actionState.isLoading ? (
               <LoadingSpinner />
             ) : (
-              <ResultText>{techstackState.result || '분석 결과가 없어요'}</ResultText>
+              <ResultText>{actionState.result || '분석 결과가 없어요'}</ResultText>
             )}
           </ResultContainer>
         </ResultSection>
       )}
 
       {/* Shoplflow 결과 */}
-      {(shoplflowState.isLoading || shoplflowState.result) && (
+      {actionState.type === 'detect-shoplflow' && (
         <ResultSection>
           <ResultTitle>🛍️ Shoplflow 결과</ResultTitle>
           <ResultContainer>
-            {shoplflowState.isLoading ? (
+            {actionState.isLoading ? (
               <LoadingSpinner />
             ) : (
-              <ResultText>{shoplflowState.result || '분석 결과가 없어요'}</ResultText>
+              <ResultText>{actionState.result || '분석 결과가 없어요'}</ResultText>
             )}
           </ResultContainer>
         </ResultSection>
@@ -129,7 +109,7 @@ const Title = styled.div`
   align-items: center;
   font-weight: 800;
   font-size: 32px;
-  color: #333333;
+  color: #5c68c9;
   border-bottom: 1px solid #e5e5e5;
 `;
 
@@ -171,13 +151,11 @@ const ResetButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: #ffffff;
-  color: #6979f8;
-  border: 1px solid #6979f8;
+  color: #ffffff;
+  background: #6979f8;
 
   &:hover:not(:disabled) {
-    background: #6979f8;
-    color: #ffffff;
+    background: #5c68c9;
   }
 
   &:active:not(:disabled) {
