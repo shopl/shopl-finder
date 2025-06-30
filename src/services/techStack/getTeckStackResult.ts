@@ -1,8 +1,8 @@
 import { ResultInfoByType } from '@/consts';
-import { DetectionResult, detectReactComponents } from '@/services/techStack/detectReactComponents';
+import { findReactComponents, FindReactComponentsResult } from '@/services/techStack/findReactComponents';
 
 export const getTeckStackResult = () => {
-  const { hasReact, isFullPageReact, reactModals, reactSections }: DetectionResult = detectReactComponents();
+  const { hasReact, isFullPageReact, reactModals, reactSections }: FindReactComponentsResult = findReactComponents();
 
   if (hasReact) {
     // React Modal

@@ -1,7 +1,14 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
-type FeatureType = 'detect-techstack' | 'detect-shoplflow' | 'reset-highlights';
+/**
+ * 동작별 type
+ */
+type FeatureType = 'find-techstack' | 'find-shoplflow' | 'reset-highlights';
+
+/**
+ * 하이라이팅에서 제외할 Shoplflow 컴포넌트 타입들
+ */
 
 const Popup: React.FC = () => {
   const [actionState, setActionState] = useState<{
@@ -14,7 +21,14 @@ const Popup: React.FC = () => {
     isLoading: false,
   });
 
-  const detectFeature = (action: FeatureType) => {
+  const EXCLUDE_SHOPLFLOW_TYPES = ['Stack', 'Popper', 'StackContainer', 'shopl', 'BackDrop'];
+
+  // shoplflow 탐지 안내 메세지
+  const noticeMessage = `⚠️ SHOPL Finder는 개발-비개발직군의 협업 도구이기에\n디자인팀과 합의된 컴포넌트만 찾아요.\n\n<제외된 개발팀 전용 컴포넌트>\n ${EXCLUDE_SHOPLFLOW_TYPES.map(
+    (type) => ` ${type} `,
+  )}`;
+
+  const handleFeature = (action: FeatureType) => {
     setActionState((prev) => ({ ...prev, isLoading: true }));
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -50,12 +64,12 @@ const Popup: React.FC = () => {
       <Title> 🔎 SHOPL Finder</Title>
 
       <ButtonSection>
-        <FeatureButton onClick={() => detectFeature('detect-techstack')}>⚙️ 기술 스택 찾기</FeatureButton>
+        <FeatureButton onClick={() => handleFeature('find-techstack')}>⚙️ 기술 스택 찾기</FeatureButton>
 
-        <FeatureButton onClick={() => detectFeature('detect-shoplflow')}>🛍️ Shoplflow 찾기</FeatureButton>
+        <FeatureButton onClick={() => handleFeature('find-shoplflow')}>🛍️ Shoplflow 찾기</FeatureButton>
 
         <ResetButton
-          onClick={() => detectFeature('reset-highlights')}
+          onClick={() => handleFeature('reset-highlights')}
           disabled={Boolean(actionState.type === 'reset-highlights' && actionState.isLoading)}
         >
           {actionState.type === 'reset-highlights' && actionState.isLoading ? '초기화 중...' : '🔄 초기화하기'}
@@ -63,7 +77,7 @@ const Popup: React.FC = () => {
       </ButtonSection>
 
       {/* 기술 스택 결과 */}
-      {actionState.type === 'detect-techstack' && (
+      {actionState.type === 'find-techstack' && (
         <ResultSection>
           <ResultTitle>📋 기술 스택 결과</ResultTitle>
           <ResultContainer>
@@ -77,7 +91,7 @@ const Popup: React.FC = () => {
       )}
 
       {/* Shoplflow 결과 */}
-      {actionState.type === 'detect-shoplflow' && (
+      {actionState.type === 'find-shoplflow' && (
         <ResultSection>
           <ResultTitle>🛍️ Shoplflow 결과</ResultTitle>
           <ResultContainer>
@@ -86,6 +100,7 @@ const Popup: React.FC = () => {
             ) : (
               <ResultText>{actionState.result || '분석 결과가 없어요'}</ResultText>
             )}
+            <NoticeText>{noticeMessage}</NoticeText>
           </ResultContainer>
         </ResultSection>
       )}
@@ -210,12 +225,17 @@ const ResultContainer = styled.div`
   background-color: #ffffff;
   min-height: 30px;
   padding: 12px;
+  white-space: pre-line;
 `;
 
 const ResultText = styled.div`
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   text-align: center;
   line-height: 1.4;
   color: #333333;
+`;
+
+const NoticeText = styled.p`
+  white-space: pre-line;
 `;

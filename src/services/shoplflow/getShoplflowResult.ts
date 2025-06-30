@@ -1,16 +1,12 @@
 import { ResultInfoByType, ResultType } from '@/consts';
-import { detectShoplflowComponents } from '@/services/shoplflow/detectShoplflowComponents';
+import { findShoplflow } from '@/services/shoplflow/findShoplflow';
 
 export const getShoplflowResult = (): string => {
-  const { hasShoplflow, shoplflowComponents, totalCount, excludedCount } = detectShoplflowComponents();
+  const { hasShoplflow, shoplflowComponents, excludedCount } = findShoplflow();
 
   if (hasShoplflow && shoplflowComponents.length > 0) {
-    // 탐지된 shoplflow 컴포넌트들을 하이라이트
-
-    const baseMessage = `${ResultInfoByType[ResultType.Shoplflow].notice} (${totalCount}개 발견)`;
-    const excludeMessage = excludedCount > 0 ? ` · ${excludedCount}개 제외됨` : '';
-
-    return baseMessage + excludeMessage;
+    const baseMessage = `${ResultInfoByType[ResultType.Shoplflow].notice}`;
+    return baseMessage;
   }
 
   if (excludedCount > 0) {

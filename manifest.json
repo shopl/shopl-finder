@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "SHOPL 페이지 분석기",
-  "version": "0.1",
-  "description": "SHOPL 대시보드 페이지의 기술 구조 요약 및 JSP와 React 영역 표시.",
+  "name": "SHOPL Finder",
+  "version": "1.0",
+  "description": "SHOPL 대시보드의 기술 구조와 디자인 시스템 적용 여부를 시각화하는 도구입니다.",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",

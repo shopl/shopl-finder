@@ -14,15 +14,4 @@ export const ResultInfoByType = {
   Shoplflow: { notice: 'Shoplflow 컴포넌트가 발견되었어요', color: '#8D4CF6' },
 } as const;
 
-/**
- * 하이라이팅에서 제외할 Shoplflow 컴포넌트 타입들
- */
-export const EXCLUDE_SHOPLFLOW_TYPES = [
-  'Stack',
-  'Popper',
-  'StackContainer',
-  'Text',
-  'shopl',
-  'BackDrop',
-  'ScrollArea',
-] as const;
+export const EXCLUDE_SHOPLFLOW_TYPES = ['Stack', 'Popper', 'StackContainer', 'shopl', 'BackDrop'];

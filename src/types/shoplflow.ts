@@ -3,7 +3,7 @@ export interface ShoplflowComponent {
   componentName: string;
 }
 
-export interface ShoplflowDetectionResult {
+export interface FindShoplflowResult {
   hasShoplflow: boolean;
   shoplflowComponents: ShoplflowComponent[];
   totalCount: number;

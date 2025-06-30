@@ -1,4 +1,4 @@
-export interface DetectionResult {
+export interface FindReactComponentsResult {
   hasReact: boolean;
   reactRoots: Element[];
   isFullPageReact: boolean;
@@ -6,7 +6,7 @@ export interface DetectionResult {
   reactSections: Element[];
 }
 
-export const detectReactComponents = (): DetectionResult => {
+export const findReactComponents = (): FindReactComponentsResult => {
   const currentUrl = window.location.href;
   const isFullPageReact = currentUrl.includes('/dv2/');
 

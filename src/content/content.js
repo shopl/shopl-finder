@@ -1,22 +1,21 @@
 import { getTeckStackResult } from '@/services/techStack/getTeckStackResult';
 import { getShoplflowResult } from '@/services/shoplflow/getShoplflowResult';
-import { highlightTeckStack } from '@/services/techStack/highlightTeckStack';
-import { highlightShoplflowComponents } from '@/services/shoplflow/highlightShoplflowComponents';
-import { resetLabelAndHighlight } from '@/services/reset/resetLabelAndHighlight';
-
+import { handleReset } from '@/services/reset/handleReset';
+import { handleHighlightTechStack } from '@/services/techStack/handleHighlightTechStack';
+import { handleHighlightShoplflow } from '@/services/shoplflow/handleHighlightShoplflow';
 
 const FindStrategyMap = {
-  'detect-techstack': {
+  'find-techstack': {
     result: () => getTeckStackResult(),
-    callback:() => highlightTeckStack(),
+    callback: () => handleHighlightTechStack(),
   },
-  'detect-shoplflow': {
+  'find-shoplflow': {
     result: () => getShoplflowResult(),
-    callback:() => highlightShoplflowComponents(),
+    callback: () => handleHighlightShoplflow(),
   },
   'reset-highlights': {
     result: () => Promise.resolve('모든 하이라이팅이 초기화되었습니다.'),
-    callback:() => resetLabelAndHighlight(),
+    callback: () => handleReset(),
   },
 }
 

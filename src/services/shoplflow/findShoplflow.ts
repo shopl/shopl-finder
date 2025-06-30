@@ -1,11 +1,11 @@
 import { EXCLUDE_SHOPLFLOW_TYPES } from '@/consts';
-import { ShoplflowComponent, ShoplflowDetectionResult } from '@/types/shoplflow';
+import { ShoplflowComponent, FindShoplflowResult } from '@/types/shoplflow';
 
 /**
- * DOM에서 data-shoplflow 속성을 가진 요소들을 탐지합니다.
+ * DOM에서 data-shoplflow 속성을 가진 요소들을 찾습니다.
  * 제외 타입에 해당하는 컴포넌트는 필터링됩니다.
  */
-export const detectShoplflowComponents = (): ShoplflowDetectionResult => {
+export const findShoplflow = (): FindShoplflowResult => {
   const shoplflowComponents: ShoplflowComponent[] = [];
   const excludedCount = 0;
 
@@ -19,7 +19,7 @@ export const detectShoplflowComponents = (): ShoplflowDetectionResult => {
   /**
    * iframe 내부의 data-shoplflow 요소를 탐지해 shoplflowComponents에 push합니다.
    */
-  const detectComponentsInIframe = (iframeList: NodeListOf<Element>, shoplflowComponents: ShoplflowComponent[]) => {
+  const findShoplflowInIframe = (iframeList: NodeListOf<Element>, shoplflowComponents: ShoplflowComponent[]) => {
     iframeList.forEach((element) => {
       const componentName = element.getAttribute('data-shoplflow');
 
@@ -41,7 +41,7 @@ export const detectShoplflowComponents = (): ShoplflowDetectionResult => {
 
   // data-shoplflow 속성을 가진 모든 요소 탐지
   const elementsWithShoplflow = document.querySelectorAll('[data-shoplflow]');
-  detectComponentsInIframe(elementsWithShoplflow, shoplflowComponents);
+  findShoplflowInIframe(elementsWithShoplflow, shoplflowComponents);
 
   const iframes = document.querySelectorAll('iframe');
   iframes.forEach((iframe) => {
@@ -49,10 +49,10 @@ export const detectShoplflowComponents = (): ShoplflowDetectionResult => {
       const iframeDocument = iframe.contentDocument;
       if (iframeDocument) {
         const iframeShoplflowElements = iframeDocument.querySelectorAll('[data-shoplflow]');
-        detectComponentsInIframe(iframeShoplflowElements, shoplflowComponents);
+        findShoplflowInIframe(iframeShoplflowElements, shoplflowComponents);
       }
     } catch (e) {
-      console.error('Error accessing iframe content for shoplflow detection:', e);
+      console.error('Error :', e);
     }
   });
 
