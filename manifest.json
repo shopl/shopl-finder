@@ -13,7 +13,8 @@
     "host_permissions": [
     "https://dashboard.shoplworks.com/*",
     "https://dev.shopl.work/*",
-    "https://qa-dashboard.shoplworks.com/*"
+    "https://qa-dashboard.shoplworks.com/*",
+    "https://dashboard.hadaworks.com/*"
   ],
   "action": {
     "default_popup": "index.html"
@@ -23,7 +24,8 @@
     "matches": [
         "https://dashboard.shoplworks.com/*",
         "https://dev.shopl.work/*",
-        "https://qa-dashboard.shoplworks.com/*"
+        "https://qa-dashboard.shoplworks.com/*",
+        "https://dashboard.hadaworks.com/*"
       ],
       "js": ["content.js"]
     }
